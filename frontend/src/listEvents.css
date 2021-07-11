@@ -1,0 +1,48 @@
+.card-display-vertically{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    flex: 1;
+}
+
+.card-display-horizontally{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.card-deck-style{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-title{
+    text-align: center;
+    padding: "10px 0";
+}
+
+.list-event-box{
+    flex-basis: calc(25% - 20px);
+    margin: 10px;
+}
+
+.search-input{
+    margin-top: 20px;
+    width: 50%;
+    text-align: center;
+}
+
+@media (max-width: 689px){
+    .list-event-box{
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width: 1500px) and (min-width: 690px){
+    .list-event-box{
+        flex-basis: calc(50% - 20px);
+    }
+}

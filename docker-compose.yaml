@@ -1,0 +1,54 @@
+version: '3.4'
+
+services:
+  webapp:
+    image: event-management:v0.1
+    build: .
+    ports:
+      - 3000:3000
+    restart: always
+    depends_on:
+      - mongodb-primary
+    environment: 
+      - mongoDatabase=eventdb
+      - mongoPassword=password123
+      - mongoUsername=my_user
+      - mongoHost=mongodb-primary
+      - mongoPort=27017
+      - PORT=3000
+  mongodb-primary:
+    image: docker.io/bitnami/mongodb:4.4
+    environment:
+      - MONGODB_USERNAME=my_user
+      - MONGODB_PASSWORD=password123
+      - MONGODB_DATABASE=eventdb
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ROOT_PASSWORD=example
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+  mongodb-secondary:
+    image: docker.io/bitnami/mongodb:4.4
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_USERNAME=my_user
+      - MONGODB_PASSWORD=password123
+      - MONGODB_DATABASE=eventdb
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=example
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+  mongodb-arbiter:
+    image: docker.io/bitnami/mongodb:4.4
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_USERNAME=my_user
+      - MONGODB_PASSWORD=password123
+      - MONGODB_DATABASE=eventdb
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=example
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123

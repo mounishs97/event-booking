@@ -1,0 +1,23 @@
+.heading-text{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.image-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: calc(25% - 10px);
+    margin-right: 10px;
+}
+
+.form-style{
+    flex-basis: 75%;
+    padding: 20px;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
